@@ -65,6 +65,7 @@ $ uv run python src/example_1.py
 ### Logfireに送る場合（example_3.py）
 
 [Logfire](https://logfire.pydantic.dev/)でプロジェクトを作成し、書き込みトークンを設定します。
+セットアップ手順は[公式ドキュメント](https://logfire.pydantic.dev/docs/)を参照してください。
 
 ```bash
 $ export LOGFIRE_TOKEN='pylf_v1_...'
