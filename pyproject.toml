@@ -1,17 +1,15 @@
 [project]
 name = "llm-observability"
 version = "0.1.0"
-description = "Add your description here"
+description = "gihyo.jp Python Monthly Topics 2026年8月号 サンプルコード"
 readme = "README.md"
-authors = [
-    { name = "kadowaki", email = "kadowaki@bakfoo.com" }
+requires-python = ">=3.12"
+dependencies = [
+    "pydantic-ai==2.22.0",
+    "logfire==4.39.0",
 ]
-requires-python = ">=3.14"
-dependencies = []
 
-[project.scripts]
-llm-observability = "llm_observability:main"
-
-[build-system]
-requires = ["uv_build>=0.12.1,<0.13.0"]
-build-backend = "uv_build"
+[tool.uv]
+# サンプルコードを置くだけでパッケージとしては配布しないため、
+# ビルド対象にしない（これがないと src/llm_observability/__init__.py を要求される）
+package = false
