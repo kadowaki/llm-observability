@@ -17,6 +17,10 @@ logfire 4.39.0
 
 記事執筆時に動作を確認した組み合わせを `uv.lock` に固定しています。
 
+`pyproject.toml` には `[tool.uv] package = false` を指定しています。
+`uv init` の既定ではパッケージとしてビルドされるため、
+この指定がないと `src/` にスクリプトを置いた状態で `uv sync` がエラーになります。
+
 ## セットアップ
 
 ```bash
@@ -82,6 +86,23 @@ $ export OTEL_EXPORTER_OTLP_ENDPOINT='http://localhost:4318'
 $ uv run python src/example_4.py
 ```
 
+### 本文を記録しない場合（example_5.py）
+
+`InstrumentationSettings(include_content=False)`を指定すると、
+プロンプトやモデルの出力がトレースに含まれなくなります。
+
+```bash
+$ export LOGFIRE_TOKEN='pylf_v1_...'
+$ uv run python src/example_5.py
+```
+
+トレース画面では`Input`や`Output`が`Not captured`と表示されます。
+スパンの構造・トークン数・レイテンシは記録されるため、
+「何回呼ばれたか」「どれくらいかかったか」は引き続き確認できます。
+
+本番環境ではプロンプトに機密情報が含まれる可能性があるため、
+記録する内容を確認したうえで設定してください。
+
 ## 注意
 
 LLMの出力は確定的ではないため、実行のたびにリトライ回数やトークン数は変わります。
@@ -89,4 +110,3 @@ LLMの出力は確定的ではないため、実行のたびにリトライ回�
 
 各サンプルはOpenAI APIを呼び出すため、実行ごとに料金が発生します。
 `retries={"output": 3}`により、1回の実行で最大4回モデルが呼ばれます。
-
